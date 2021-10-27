@@ -60,7 +60,12 @@ void SmallTriangulationTwoLoops(float matrix[][SMALL + 1], int n)
 		
 		for (int j = i + 1; j < n; j++)
 		{
-			
+			int rowSubPivotStart = n * (i + 1) + (i + 1) + i;
+			int rowSubPivotFinish = rowSubPivotStart + (n - i);
+			vector<float> rowSubpivot(matrix + rowSubPivotStart, matrix + rowSubPivotFinish);
+			//matrix[j] = ;
+			rowPivot *= matrix[i][i];
+			rowSubpivot = (matrix[i][i] * rowSubpivot) - (matrix[j][i] * rowPivot);
 		}
 	}
 }
@@ -69,7 +74,7 @@ void BigTriangulationTwoLoops(float matrix[][BIG + 1], int n)
 	//i: Pivots
 	//j: Subpivots
 	//k: Current row elements
-	for (int i = 0; i < n - 1; i++)
+	/*for (int i = 0; i < n - 1; i++)
 	{
 		float pivot = matrix[i][i];
 		for (int j = i + 1; j < n; j++)
@@ -80,5 +85,5 @@ void BigTriangulationTwoLoops(float matrix[][BIG + 1], int n)
 				matrix[j][k] = (pivot * matrix[j][k]) - (subPivot * matrix[i][k]);
 			}
 		}
-	}
+	}*/
 }

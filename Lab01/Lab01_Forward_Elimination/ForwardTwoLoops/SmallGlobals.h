@@ -2,6 +2,7 @@
 #include <iostream>
 #include <math.h>
 #include <time.h>
+#include <vector>
 using namespace std;
 #define SMALL 5
 
@@ -136,4 +137,8 @@ void SmallDrawExpanded(float matrix[][SMALL + 1], int n)
 		}
 	}
 
+}
+void MultiplyVector(vector<float>& vec, float k)
+{
+	
 }
