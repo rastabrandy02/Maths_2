@@ -2,6 +2,7 @@
 #include "BigGlobals.h"
 #include "SDL/include/SDL.h"
 #include <vector>
+#include <algorithm>
 
 
 
@@ -53,6 +54,7 @@ void SmallTriangulationTwoLoops(float matrix[][SMALL + 1], int n)
 	}*/
 	for (int i = 0; i < n - 1; i++)
 	{
+		float pivot = matrix[i][i];
 		int rowPivotStart = (n + 1) * i + i;
 		//int rowPivotFinish = n*i + n - i;
 		int rowPivotFinish = rowPivotStart + (n - i);
@@ -64,8 +66,9 @@ void SmallTriangulationTwoLoops(float matrix[][SMALL + 1], int n)
 			int rowSubPivotFinish = rowSubPivotStart + (n - i);
 			vector<float> rowSubpivot(matrix + rowSubPivotStart, matrix + rowSubPivotFinish);
 			//matrix[j] = ;
-			rowPivot *= matrix[i][i];
-			rowSubpivot = (matrix[i][i] * rowSubpivot) - (matrix[j][i] * rowPivot);
+			transform(rowSubpivot.begin(), rowSubpivot.end(), rowSubpivot.begin(), [pivot](int& c) { return c * pivot; });
+			/*rowPivot *= matrix[i][i];
+			rowSubpivot = (matrix[i][i] * rowSubpivot) - (matrix[j][i] * rowPivot);*/
 		}
 	}
 }
