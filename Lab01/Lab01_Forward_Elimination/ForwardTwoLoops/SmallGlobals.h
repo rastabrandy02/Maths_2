@@ -114,7 +114,7 @@ void SmallExpansion(float matrix[][SMALL], float* independent, float expanded[][
 	}
 }
 
-void SmallDraw(float matrix[][SMALL], int n)
+void SmallDrawMatrix(float matrix[][SMALL], int n)
 {
 	cout << "---Matrix---" << endl;
 	for (int i = 0; i < n; i++)
