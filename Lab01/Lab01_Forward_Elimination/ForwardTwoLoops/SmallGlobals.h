@@ -138,7 +138,19 @@ void SmallDrawExpanded(float matrix[][SMALL + 1], int n)
 	}
 
 }
-void MultiplyVector(vector<float>& vec, float k)
+void SmallInsertInMatrix(float matrix[][SMALL +1], int n, int row, vector<float> vec)
 {
-	
+	for (int i = 0; i < n + 1; i++)
+	{
+		matrix[row][i] = vec[i];
+	}
+}
+void SmallInsertInVector(float matrix[][SMALL + 1], int n, int row, vector<float>& vec)
+{
+	float aux[SMALL + 1];
+	for (int i = 0; i < n + 1; i++)
+	{
+		aux[i] = matrix[row][i];
+	}
+	vec.assign(aux, aux + n+1);
 }

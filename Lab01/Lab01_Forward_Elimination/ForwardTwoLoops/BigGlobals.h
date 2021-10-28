@@ -137,3 +137,19 @@ void BigDrawExpanded(float matrix[][BIG + 1], int n)
 	}
 
 }
+void BigInsertInMatrix(float matrix[][BIG + 1], int n, int row, vector<float> vec)
+{
+	for (int i = 0; i < n + 1; i++)
+	{
+		matrix[row][i] = vec[i];
+	}
+}
+void BigInsertInVector(float matrix[][BIG + 1], int n, int row, vector<float>& vec)
+{
+	float aux[BIG + 1];
+	for (int i = 0; i < n + 1; i++)
+	{
+		aux[i] = matrix[row][i];
+	}
+	vec.assign(aux, aux + n + 1);
+}

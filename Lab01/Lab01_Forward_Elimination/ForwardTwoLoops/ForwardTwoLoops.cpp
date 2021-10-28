@@ -3,6 +3,7 @@
 #include "SDL/include/SDL.h"
 #include <vector>
 #include <algorithm>
+#include <iterator>
 
 
 
@@ -20,8 +21,9 @@ int main(int argc, char* argv[])
 	SmallTriangulationTwoLoops(smallExpanded, SMALL);
 	SmallDrawExpanded(smallExpanded, SMALL);
 	Uint64 finishTime = SDL_GetPerformanceCounter();
-	time = (double)((finishTime - startTime) * 1000) / SDL_GetPerformanceFrequency();
 	//time = finishTime - startTime;
+	time = (double)((finishTime - startTime) * 1000) / SDL_GetPerformanceFrequency();
+	
 
 
 	Uint64 startTime2 = SDL_GetPerformanceCounter();
@@ -39,54 +41,77 @@ void SmallTriangulationTwoLoops(float matrix[][SMALL + 1], int n)
 {
 	//i: Pivots
 	//j: Subpivots
-	//k: Current row elements
-	/*for (int i = 0; i < n - 1; i++)
-	{
-		float pivot = matrix[i][i];
-		for (int j = i + 1; j < n; j++)
-		{
-			float subPivot = matrix[j][i];
-			for (int k = i; k < n + 1; k++)
-			{
-				matrix[j][k] = (pivot * matrix[j][k]) - (subPivot * matrix[i][k]);
-			}
-		}
-	}*/
+	
+	
 	for (int i = 0; i < n - 1; i++)
 	{
+		
 		float pivot = matrix[i][i];
-		int rowPivotStart = (n + 1) * i + i;
-		//int rowPivotFinish = n*i + n - i;
-		int rowPivotFinish = rowPivotStart + (n - i);
-		vector <float> rowPivot (matrix + rowPivotStart , matrix + rowPivotFinish);
+		int rowPivotStart = i;
+		int rowPivotFinish = rowPivotStart + (n + 1);
+		vector<float> rowPivot;
+		SmallInsertInVector(matrix, SMALL, i, rowPivot);
+		
 		
 		for (int j = i + 1; j < n; j++)
 		{
-			int rowSubPivotStart = n * (i + 1) + (i + 1) + i;
-			int rowSubPivotFinish = rowSubPivotStart + (n - i);
-			vector<float> rowSubpivot(matrix + rowSubPivotStart, matrix + rowSubPivotFinish);
-			//matrix[j] = ;
-			transform(rowSubpivot.begin(), rowSubpivot.end(), rowSubpivot.begin(), [pivot](int& c) { return c * pivot; });
-			/*rowPivot *= matrix[i][i];
-			rowSubpivot = (matrix[i][i] * rowSubpivot) - (matrix[j][i] * rowPivot);*/
+			vector<float> result;
+			float subPivot = matrix[j][i];
+			int rowSubPivotStart = (n+1) * j;
+			int rowSubPivotFinish = rowSubPivotStart + n;
+			vector<float> rowSubPivot;
+			SmallInsertInVector(matrix, SMALL, j, rowSubPivot);
+
+
+			transform(rowPivot.begin(), rowPivot.end(), rowPivot.begin(), [subPivot](float& c) {return c * subPivot; });
+			transform(rowSubPivot.begin(), rowSubPivot.end(), rowSubPivot.begin(), [pivot](float& c) { return c * pivot; });
+
+			/*transform(rowSubPivot.begin(), rowSubPivot.end(), rowPivot.begin(), back_inserter(result),
+				[](float a, float b) { return fabs(a - b); });*/
+			transform(rowPivot.begin(), rowPivot.end(), rowSubPivot.begin(), back_inserter(result), minus<float>());
+			
+			SmallInsertInMatrix(matrix, SMALL, j, result);
+			
 		}
 	}
+	
 }
 void BigTriangulationTwoLoops(float matrix[][BIG + 1], int n)
 {
 	//i: Pivots
 	//j: Subpivots
-	//k: Current row elements
-	/*for (int i = 0; i < n - 1; i++)
+	for (int i = 0; i < n - 1; i++)
 	{
+
+
 		float pivot = matrix[i][i];
+		int rowPivotStart = i;
+		int rowPivotFinish = rowPivotStart + (n + 1);
+		vector<float> rowPivot;
+		BigInsertInVector(matrix, BIG, i, rowPivot);
+
+
 		for (int j = i + 1; j < n; j++)
 		{
+			vector<float> result;
 			float subPivot = matrix[j][i];
-			for (int k = i; k < n + 1; k++)
-			{
-				matrix[j][k] = (pivot * matrix[j][k]) - (subPivot * matrix[i][k]);
-			}
+			int rowSubPivotStart = (n + 1) * j;
+			int rowSubPivotFinish = rowSubPivotStart + n;
+			vector<float> rowSubPivot;
+			BigInsertInVector(matrix, BIG, j, rowSubPivot);
+
+
+			transform(rowPivot.begin(), rowPivot.end(), rowPivot.begin(), [subPivot](float& c) {return c * subPivot; });
+			transform(rowSubPivot.begin(), rowSubPivot.end(), rowSubPivot.begin(), [pivot](float& c) { return c * pivot; });
+
+			/*transform(rowSubPivot.begin(), rowSubPivot.end(), rowPivot.begin(), back_inserter(result),
+				[](float a, float b) { return fabs(a - b); });*/
+			
+			transform(rowPivot.begin(), rowPivot.end(), rowSubPivot.begin(), back_inserter(result), minus<float>());
+			
+
+			BigInsertInMatrix(matrix, BIG, j, result);
+
 		}
-	}*/
+	}
 }
