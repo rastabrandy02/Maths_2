@@ -4,12 +4,15 @@
 #include <time.h>
 #include <vector>
 using namespace std;
-#define SMALL 5
+#define SMALL 3
 
 float smallMatrix[SMALL][SMALL] = { 0 };
 float smallIndependent[SMALL] = { 0 };
 float smallExpanded[SMALL][SMALL + 1] = { 0 };
 float smallResult[SMALL] = { 0 };
+
+vector<vector<float>> smallMatrixVec;
+
 
 void SmallMatrixImput(float matrix[][SMALL], float* independent, int n)
 {
@@ -154,3 +157,25 @@ void SmallInsertInVector(float matrix[][SMALL + 1], int n, int row, vector<float
 	}
 	vec.assign(aux, aux + n+1);
 }
+
+void SmallFillVector(float matrix[][SMALL +1], int n)
+{
+	smallMatrixVec.assign(SMALL, vector<float>(SMALL + 1, 0));
+	for(int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n + 1; j++)
+		{
+			
+			smallMatrixVec[i][j] = matrix[i][j];
+			//cout << smallMatrixVec[i][j]<<" ";
+		}
+		cout << endl;
+	}
+	
+}
+//float& At(int i, int j)
+//{
+//	
+//
+//	return smallMatrixVec.at(i).at(j);
+//}

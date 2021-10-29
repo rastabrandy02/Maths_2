@@ -104,16 +104,16 @@ void BigTriangulationThreeLoops(float matrix[][BIG + 1], int n)
 void SmallBackTracking(float matrix[][SMALL + 1], int n, float* result)
 {
 	
-	
-		for (int i = n - 1; i >= 0; i--)
+	result[n - 1] = matrix[n - 1][n] / matrix[n - 1][n - 1];
+		for (int i = n - 2; i >= 0; i--)
 		{
 			float sum = 0;
 			for (int j = n - 1; j >= 0; j--)
 			{
 				//result[j] = matrix[j][i]/(matrix[j][k] * result[k])
-				sum += matrix[i][j] * result[j];
+				if(matrix[i][j] != 0) sum = sum + (matrix[i][j] * result[j]);
 			}
-			result[i] = matrix[i][n+1] / sum;
+			result[i] = (matrix[i][n+1] / sum);
 		}
 	
 }
