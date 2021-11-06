@@ -10,6 +10,8 @@ float BigIndependent[BIG] = { 0 };
 float BigExpanded[BIG][BIG + 1] = { 0 };
 float BigResult[BIG] = { 0 };
 
+vector<vector<float>> bigMatrixVec;
+
 void BigMatrixImput(float matrix[][BIG], float* independent, int n)
 {
 	bool loop = true;

@@ -5,20 +5,26 @@
 #include <vector>
 using namespace std;
 #define SMALL 3
+#define BIG 50
 
-float smallMatrix[SMALL][SMALL] = { 0 };
-float smallIndependent[SMALL] = { 0 };
-float smallExpanded[SMALL][SMALL + 1] = { 0 };
-float smallResult[SMALL] = { 0 };
+vector<vector<float>> smallMatrix;
+vector<float>smallIndependent;
+vector<vector<float>> smallExpanded;
+vector<float>smallResult;
 
-vector<vector<float>> smallMatrixVec;
+vector<vector<float>> bigMatrix;
+vector<float> bigIndependent;
+vector<vector<float>> bigExpanded;
+vector<float> bigResult;
 
 
-void SmallMatrixImput(float matrix[][SMALL], float* independent, int n)
+void MatrixImput(vector<vector<float> >& matrix, vector<float>& independent, int n)
 {
 	bool loop = true;
-
 	int imput = 0;
+
+	matrix.assign(n, vector<float>(n, 0));
+	independent.assign(n, 0);
 	cout << "Introduce the values for the matrix:" << endl;
 	for (int i = 0; i < n; i++)
 	{
@@ -68,12 +74,15 @@ void SmallMatrixImput(float matrix[][SMALL], float* independent, int n)
 
 
 }
-void SmallMatrixRand(float matrix[][SMALL], float* independent, int n)
+void MatrixRand(vector<vector<float> >& matrix, vector<float>& independent, int n)
 {
 	srand(time(NULL));
 	bool loop = true;
-
 	int imput = 0;
+
+	matrix.assign(n, vector<float>(n, 0));
+	independent.assign(n, 0);
+
 	cout << "Assigning the values for the matrix:" << endl;
 	for (int i = 0; i < n; i++)
 	{
@@ -105,8 +114,9 @@ void SmallMatrixRand(float matrix[][SMALL], float* independent, int n)
 
 }
 
-void SmallExpansion(float matrix[][SMALL], float* independent, float expanded[][SMALL + 1], int n)
+void Expansion(vector<vector<float> > matrix, vector<float> independent, vector<vector<float>>& expanded, int n)
 {
+	expanded.assign(n, vector<float>(n + 1, 0));
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j <= n; j++)
@@ -117,7 +127,7 @@ void SmallExpansion(float matrix[][SMALL], float* independent, float expanded[][
 	}
 }
 
-void SmallDrawMatrix(float matrix[][SMALL], int n)
+void DrawMatrix(vector<vector<float> > matrix, int n)
 {
 	cout << "---Matrix---" << endl;
 	for (int i = 0; i < n; i++)
@@ -129,53 +139,49 @@ void SmallDrawMatrix(float matrix[][SMALL], int n)
 	}
 
 }
-void SmallDrawExpanded(float matrix[][SMALL + 1], int n)
+void SmallDrawExpanded(vector<vector<float> > matrix, int n)
 {
 	cout << "---Matrix---" << endl;
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n +1 ; j++)
 		{
-			cout << "Term [" << i << "] [" << j << "] = " << matrix[i][j] << endl;
-		}
-	}
-
-}
-void SmallInsertInMatrix(float matrix[][SMALL +1], int n, int row, vector<float> vec)
-{
-	for (int i = 0; i < n + 1; i++)
-	{
-		matrix[row][i] = vec[i];
-	}
-}
-void SmallInsertInVector(float matrix[][SMALL + 1], int n, int row, vector<float>& vec)
-{
-	float aux[SMALL + 1];
-	for (int i = 0; i < n + 1; i++)
-	{
-		aux[i] = matrix[row][i];
-	}
-	vec.assign(aux, aux + n+1);
-}
-
-void SmallFillVector(float matrix[][SMALL +1], int n)
-{
-	smallMatrixVec.assign(SMALL, vector<float>(SMALL + 1, 0));
-	for(int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < n + 1; j++)
-		{
-			
-			smallMatrixVec[i][j] = matrix[i][j];
-			//cout << smallMatrixVec[i][j]<<" ";
+			if(j == n) cout<< "|";
+			cout << "[" << i << "] [" << j << "] = " << matrix[i][j]<<"  ";
 		}
 		cout << endl;
 	}
-	
+
 }
-//float& At(int i, int j)
+//void SmallInsertInMatrix(float matrix[][SMALL +1], int n, int row, vector<float> vec)
 //{
+//	for (int i = 0; i < n + 1; i++)
+//	{
+//		matrix[row][i] = vec[i];
+//	}
+//}
+//void SmallInsertInVector(float matrix[][SMALL + 1], int n, int row, vector<float>& vec)
+//{
+//	float aux[SMALL + 1];
+//	for (int i = 0; i < n + 1; i++)
+//	{
+//		aux[i] = matrix[row][i];
+//	}
+//	vec.assign(aux, aux + n+1);
+//}
+
+//void SmallFillVector(float matrix[][SMALL +1], int n)
+//{
+//	smallExpanded.assign(SMALL, vector<float>(SMALL + 1, 0));
+//	for(int i = 0; i < n; i++)
+//	{
+//		for (int j = 0; j < n + 1; j++)
+//		{
+//			
+//			smallExpanded[i][j] = matrix[i][j];
+//			
+//		}
+//		cout << endl;
+//	}
 //	
-//
-//	return smallMatrixVec.at(i).at(j);
 //}
