@@ -73,6 +73,9 @@ int main()
 		
 		
 	}
+	cout << "Imput any key to exit" << endl;
+	char end;
+	cin >> end;
 	cout << "Exiting the program" << endl;
 	
 	return 0;
@@ -97,7 +100,7 @@ void GetRotationFromAxisAngle(float* axis, float angle, float rotation[][3], int
 	{
 		case 0:
 		{
-			float axisNorm = sqrt(axis[0] * axis[0] + axis[1] * axis[1] + axis[2] * axis[2]);
+			 axisNorm = sqrt(axis[0] * axis[0] + axis[1] * axis[1] + axis[2] * axis[2]);
 			if (EqualToOne(axisNorm) == false)
 			{
 				for (int i = 0; i < 3; i++)

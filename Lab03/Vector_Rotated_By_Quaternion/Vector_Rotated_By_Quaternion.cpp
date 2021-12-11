@@ -45,6 +45,11 @@ int main()
 
 	cout << "The vector after the rotation is: " << endl;
 	for (int i = 0; i < 3; i++) cout << vector[i] << endl;
+
+	cout << "Imput any key to exit" << endl;
+	char end;
+	cin >> end;
+	cout << "Exiting the program" << endl;
 	return 0;
 }
 void HamiltonProduct(float* q, float* p, float* result)
