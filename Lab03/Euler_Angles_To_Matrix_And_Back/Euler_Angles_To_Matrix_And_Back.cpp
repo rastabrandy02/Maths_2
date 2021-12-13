@@ -2,10 +2,14 @@
 #include <math.h>
 using namespace std;
 
+#define DEGTORAD 0.0174532925199432957f
+#define RADTODEG 57.295779513082320876f
+
 float alpha;
 float beta;
 float gamma;
 
+float test;
 float rotationMatrix[3][3] = { 0 };
 float alphaResult;
 float betaResult;
@@ -20,12 +24,15 @@ int main()
 	cout << "This program implements a function to pass from a set of Euler angles to it's rotation matrix" << endl;
 	cout << "The second part of this program implements a function that does the inverse process, now using the rotation matrix obtained before" << endl;
 
-	cout << "Introduce the ALPHA (yaw) angle:" << endl;
+	cout << "Introduce the ALPHA (roll) angle:" << endl;
 	cin >> alpha;
+	alpha *= DEGTORAD;
 	cout << "Introduce the BETA (pitch) angle:" << endl;
 	cin >> beta;
-	cout << "Introduce the GAMMA (roll) angle:" << endl;
+	beta *= DEGTORAD;
+	cout << "Introduce the GAMMA (yaw) angle:" << endl;
 	cin >> gamma;
+	gamma *= DEGTORAD;
 	cout << endl << "Computing the rotation matrix..." << endl<< endl;
 
 	GetRotationFromEulerAngles(alpha, beta, gamma, rotationMatrix);
@@ -44,7 +51,11 @@ int main()
 	cout << "ALPHA: " << alphaResult << endl;
 	cout << "BETA: " << betaResult << endl;
 	cout << "GAMMA: " << gammaResult << endl;
-
+	cout << "Test: " << test << endl;
+	test = sin(test);
+	cout << "Sin: " << test << endl;
+	test = asin(test);
+	cout << "Test: "<<test << endl;
 	return 0;
 }
 void GetRotationFromEulerAngles(float alpha, float beta, float gamma, float result[][3])
@@ -70,8 +81,10 @@ void GetRotationFromEulerAngles(float alpha, float beta, float gamma, float resu
 }
 void GetEulerAnglesfromRotation(float matrix[][3], float &alpha, float &beta, float &gamma)
 {
-	beta = -asin(matrix[2][0]);
-	alpha = (acos(matrix[0][0] / cos(beta)) + asin(matrix[1][0] / cos(beta))) / 2;
-	gamma = (asin(matrix[2][1] / cos(beta)) + acos(matrix[2][2] / cos(beta))) / 2;
+	beta = RADTODEG*(-asin(matrix[2][0]));
+	gamma = RADTODEG* atan2f(matrix[0][0] / cos(beta), matrix[1][0] / cos(beta));
+	alpha = RADTODEG * atan2f(matrix[2][1] / cos(beta), matrix[2][2] / cos(beta));
+	if (alpha < 0) alpha = alpha + 180;
+	if (gamma < 0) gamma = gamma + 180;
 
 }
