@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vector_Rotated_By_Quaternio
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Set_Of_Rotations_With_Traces", "Set_Of_Rotations_With_Traces\Set_Of_Rotations_With_Traces.vcxproj", "{025390F1-2460-44D9-826F-49296A77F5A6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Euler_Angles_To_Matrix_And_Back", "Euler_Angles_To_Matrix_And_Back\Euler_Angles_To_Matrix_And_Back.vcxproj", "{A2C5A640-6529-4A58-AFAC-0961855B2A20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{025390F1-2460-44D9-826F-49296A77F5A6}.Release|x64.Build.0 = Release|x64
 		{025390F1-2460-44D9-826F-49296A77F5A6}.Release|x86.ActiveCfg = Release|Win32
 		{025390F1-2460-44D9-826F-49296A77F5A6}.Release|x86.Build.0 = Release|Win32
+		{A2C5A640-6529-4A58-AFAC-0961855B2A20}.Debug|x64.ActiveCfg = Debug|x64
+		{A2C5A640-6529-4A58-AFAC-0961855B2A20}.Debug|x64.Build.0 = Debug|x64
+		{A2C5A640-6529-4A58-AFAC-0961855B2A20}.Debug|x86.ActiveCfg = Debug|Win32
+		{A2C5A640-6529-4A58-AFAC-0961855B2A20}.Debug|x86.Build.0 = Debug|Win32
+		{A2C5A640-6529-4A58-AFAC-0961855B2A20}.Release|x64.ActiveCfg = Release|x64
+		{A2C5A640-6529-4A58-AFAC-0961855B2A20}.Release|x64.Build.0 = Release|x64
+		{A2C5A640-6529-4A58-AFAC-0961855B2A20}.Release|x86.ActiveCfg = Release|Win32
+		{A2C5A640-6529-4A58-AFAC-0961855B2A20}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
