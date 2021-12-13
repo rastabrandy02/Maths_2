@@ -1,6 +1,8 @@
 #include <iostream>
 #include <time.h>
 using namespace std;
+#define DEGTORAD 0.0174532925199432957f
+#define RADTODEG 57.295779513082320876f
 
 float axis[3] = { 0 };
 float angle;
@@ -21,8 +23,8 @@ int main()
 			axis[i] = rand() % 9;
 		}
 
-		//Here we get the angle from 0 to 6*PI in degrees
-		angle = 10 * loop;
+		//Here we get the angle from 0 to 6*PI
+		angle = 10 * loop * DEGTORAD;
 
 		GetRotationFromAxisAngle(axis, angle, matrixRotation);
 		trace = GetTrace(matrixRotation);

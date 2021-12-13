@@ -86,5 +86,4 @@ void GetEulerAnglesfromRotation(float matrix[][3], float &alpha, float &beta, fl
 	alpha = RADTODEG * atan2f(matrix[2][1] / cos(beta), matrix[2][2] / cos(beta));
 	if (alpha < 0) alpha = alpha + 180;
 	if (gamma < 0) gamma = gamma + 180;
-
 }

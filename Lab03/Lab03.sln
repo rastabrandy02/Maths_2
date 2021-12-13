@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Set_Of_Rotations_With_Trace
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Euler_Angles_To_Matrix_And_Back", "Euler_Angles_To_Matrix_And_Back\Euler_Angles_To_Matrix_And_Back.vcxproj", "{A2C5A640-6529-4A58-AFAC-0961855B2A20}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chained_Rotations", "Chained_Rotations\Chained_Rotations.vcxproj", "{28877873-6BE6-4E48-BB1A-2F789E5E7B11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{A2C5A640-6529-4A58-AFAC-0961855B2A20}.Release|x64.Build.0 = Release|x64
 		{A2C5A640-6529-4A58-AFAC-0961855B2A20}.Release|x86.ActiveCfg = Release|Win32
 		{A2C5A640-6529-4A58-AFAC-0961855B2A20}.Release|x86.Build.0 = Release|Win32
+		{28877873-6BE6-4E48-BB1A-2F789E5E7B11}.Debug|x64.ActiveCfg = Debug|x64
+		{28877873-6BE6-4E48-BB1A-2F789E5E7B11}.Debug|x64.Build.0 = Debug|x64
+		{28877873-6BE6-4E48-BB1A-2F789E5E7B11}.Debug|x86.ActiveCfg = Debug|Win32
+		{28877873-6BE6-4E48-BB1A-2F789E5E7B11}.Debug|x86.Build.0 = Debug|Win32
+		{28877873-6BE6-4E48-BB1A-2F789E5E7B11}.Release|x64.ActiveCfg = Release|x64
+		{28877873-6BE6-4E48-BB1A-2F789E5E7B11}.Release|x64.Build.0 = Release|x64
+		{28877873-6BE6-4E48-BB1A-2F789E5E7B11}.Release|x86.ActiveCfg = Release|Win32
+		{28877873-6BE6-4E48-BB1A-2F789E5E7B11}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
