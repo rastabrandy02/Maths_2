@@ -1,0 +1,15 @@
+- First, the program will ask the user if he wants to imput the matrix manually or if he wants to use a randomly generated one
+- Then it starts the performance counter to track the time it takes to the program to perform the triangulation of the matrix
+- If the matrix was set automatically the program will print it on screen before expanding the matrix with the independent terms
+- Now starts the triangulation. To do so, the program will iterate by all the pivots, assigning as subpivots the elements below the pivot each loop.
+ After defining the pivot and subpivot corresponding to the current iteration, the program will change the values of the subpivot's row according to the pivot rule.
+ Notice that before starting to triangulate, the program automatically swaps the rows to have the pivot with the maximum absolute value at the top.
+ Also, during the triangulation, the values of the terms changed each iteration are controlled dividing the pivot rule formula by the pivot*.
+ *(this only occurs when the pivot is big enough, avoiding the possible larger increment of the values on the matrix)
+- After triangulating the matrix, it is shown to the user and the performance timer stops
+- Then, the program checks the possible solutions of this matrix comparing the number of rows with the linear dependence of those using the number of non-zero pivots to determine the range of the matrix:
+- If the matrix has no solutions or infinite solutions the program will infrom the user and end.
+- Else, the program will find the solutions using the backtracking.
+- In order to do the backtracking the program will start with the bottom row (the one that only has the pivot and the independent term) in order to find the first solution,
+ then, it will iterate to the top having into account the results found in previous iterations in order to solve the system of equations contained in the matrix.
+- Finally, the program will show the results and the performance time to the user before asking to shut down.
