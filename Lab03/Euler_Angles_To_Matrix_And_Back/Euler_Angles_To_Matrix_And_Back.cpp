@@ -9,7 +9,6 @@ float alpha;
 float beta;
 float gamma;
 
-float test;
 float rotationMatrix[3][3] = { 0 };
 float alphaResult;
 float betaResult;
@@ -51,11 +50,11 @@ int main()
 	cout << "ALPHA: " << alphaResult << endl;
 	cout << "BETA: " << betaResult << endl;
 	cout << "GAMMA: " << gammaResult << endl;
-	cout << "Test: " << test << endl;
-	test = sin(test);
-	cout << "Sin: " << test << endl;
-	test = asin(test);
-	cout << "Test: "<<test << endl;
+
+	cout << "Imput any key to exit" << endl;
+	char end;
+	cin >> end;
+	cout << "Exiting the program" << endl;
 	return 0;
 }
 void GetRotationFromEulerAngles(float alpha, float beta, float gamma, float result[][3])

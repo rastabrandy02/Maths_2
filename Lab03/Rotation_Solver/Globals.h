@@ -1,99 +1,26 @@
+#pragma once
 #include <iostream>
 #include <math.h>
-#include <time.h>
 using namespace std;
 #define DEGTORAD 0.0174532925199432957f
 #define RADTODEG 57.295779513082320876f
 
-float eulerAxis[3];
-float eulerAngle;
-float matrix[3][3];
-float alpha;
-float beta;
-float gamma;
-float quaternion[4];
-float vector[3];
-
-void GetMatrixFromAxisAngle(float* axis, float angle, float matrix[][3]);
-void GetEulerAnglesFromMatrix(float matrix[][3], float& alpha, float& beta, float& gamma);
-void GetAxisAngleFromMatrix(float matrix[][3], float* axis, float& angle);
-void GetQuaternionFromAxisAngle(float* axis, float angle, float* quaternion);
-void GetAxisAngleFromQuaternion(float* quaternion, float* axis, float& angle);
-void GetVectorFromAxisAngle(float* axis, float angle, float* vector);
-void GetAxisAngleFromVector(float* vector, float* axis, float& angle);
-bool EqualToOne(float num);
-float GetTrace(float matrix[][3]);
-
-void PrintEulerAxisAngle(float* axis, float angle);
-void PrintMatrix(float matrix[][3]);
-void PrintEulerAngles(float alpha, float beta, float gamma);
-void PrintQuaternion(float* quaternion);
-void PrintVector(float* vector);
-int main()
+bool EqualToOne(float num)
 {
-	srand(time(NULL));
-	cout << "This program will chain between different representations of the same rotation" << endl;
-	cout << "We will start with a random Euler principal axis and angle:" << endl;
-	cout << endl;
+	bool ret = false;
+
+	if (num < 1.1f && num > 0.9f) ret = true;
+	return ret;
+}
+float GetTrace(float matrix[][3])
+{
+	float result = 0;
 	for (int i = 0; i < 3; i++)
 	{
-		eulerAxis[i] = rand() % 9;
+		result += matrix[i][i];
 	}
-	eulerAngle = rand()%90 * DEGTORAD;
-	float axisNorm = sqrt(eulerAxis[0] * eulerAxis[0] + eulerAxis[1] * eulerAxis[1] + eulerAxis[2] * eulerAxis[2]);
-	if (EqualToOne(axisNorm) == false)
-	{
-		for (int i = 0; i < 3; i++)
-		{
-			eulerAxis[i] = eulerAxis[i] / axisNorm;
-
-		}
-
-	}
-	PrintEulerAxisAngle(eulerAxis, eulerAngle);
-	cout << endl;
-
-	GetMatrixFromAxisAngle(eulerAxis, eulerAngle, matrix);
-	PrintMatrix(matrix);
-	cout << endl;
-
-	cout << "With this matrix we will find the euler angles (ALPHA, BETA & GAMMA):" << endl;
-	GetEulerAnglesFromMatrix(matrix, alpha, beta, gamma);
-	PrintEulerAngles(alpha, beta, gamma);
-	cout << endl;
-
-	cout << "With the matrix we will also find the Euler principal axis and angle:" << endl;
-	GetAxisAngleFromMatrix(matrix, eulerAxis, eulerAngle);
-	PrintEulerAxisAngle(eulerAxis, eulerAngle);
-	cout << endl;
-
-	cout << "Using the Euler principal axis and angle, we will find the quaternion: " << endl;
-	GetQuaternionFromAxisAngle(eulerAxis, eulerAngle, quaternion);
-	PrintQuaternion(quaternion);
-	cout << endl;
-
-	cout << "We will use the quaternion to find the Euler principal axis and angle: " << endl;
-	GetAxisAngleFromQuaternion(quaternion, eulerAxis, eulerAngle);
-	PrintEulerAxisAngle(eulerAxis, eulerAngle);
-	cout << endl;
-
-	cout << "Using the Euler principal axis and angle, we will find the rotation vector: " << endl;
-	GetVectorFromAxisAngle(eulerAxis, eulerAngle, vector);
-	PrintVector(vector);
-	cout << endl;
-
-	cout << "Finally, we will use the rotation vector to find the Euler principal axis and angle: " << endl;
-	GetAxisAngleFromVector(vector, eulerAxis, eulerAngle);
-	PrintEulerAxisAngle(eulerAxis, eulerAngle);
-
-	cout << "Imput any key to exit" << endl;
-	char end;
-	cin >> end;
-	cout << "Exiting the program" << endl;
-	return 0;
+	return result;
 }
-
-
 void GetMatrixFromAxisAngle(float* axis, float angle, float matrix[][3])
 {
 	float axisNorm;
@@ -101,7 +28,7 @@ void GetMatrixFromAxisAngle(float* axis, float angle, float matrix[][3])
 	float matrixUU[3][3] = { 0 };
 	float matrixVectorProduct[3][3] = { 0 };
 
-	
+
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -154,7 +81,7 @@ void GetAxisAngleFromMatrix(float matrix[][3], float* axis, float& angle)
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			matrixVectorProduct[i][j] = (matrix[i][j] - transposed[i][j]) / (2*sin(angle));
+			matrixVectorProduct[i][j] = (matrix[i][j] - transposed[i][j]) / (2 * sin(angle));
 		}
 	}
 	axis[0] = (matrixVectorProduct[2][1] - matrixVectorProduct[1][2]) / 2;
@@ -166,18 +93,18 @@ void GetQuaternionFromAxisAngle(float* axis, float angle, float* quaternion)
 	quaternion[0] = cos(angle / 2);
 	for (int i = 0; i < 3; i++)
 	{
-		quaternion[i+ 1] = axis[i] * sin(angle / 2);
+		quaternion[i + 1] = axis[i] * sin(angle / 2);
 	}
 }
 void GetAxisAngleFromQuaternion(float* quaternion, float* axis, float& angle)
 {
-	
+
 	angle = 2 * acos(quaternion[0]);
 	for (int i = 0; i < 3; i++)
 	{
 		axis[i] = quaternion[i + 1] / sqrt(1 - pow(quaternion[0], 2));
 	}
-	
+
 }
 void GetVectorFromAxisAngle(float* axis, float angle, float* vector)
 {
@@ -194,22 +121,28 @@ void GetAxisAngleFromVector(float* vector, float* axis, float& angle)
 		axis[i] = vector[i] / angle;
 	}
 }
-bool EqualToOne(float num)
+void GetMatrixFromEulerAngles(float alpha, float beta, float gamma, float matrix[][3])
 {
-	bool ret = false;
+	matrix[0][0] = cos(gamma) * cos(beta);
+	matrix[0][1] = cos(gamma) * sin(beta) * sin(alpha) - sin(gamma) * cos(alpha);
+	matrix[0][2] = cos(gamma) * sin(beta) * cos(alpha) + sin(gamma) * sin(alpha);
 
-	if (num < 1.1f && num > 0.9f) ret = true;
-	return ret;
-}
-float GetTrace(float matrix[][3])
-{
-	float result = 0;
+	matrix[1][0] = sin(gamma) * cos(beta);
+	matrix[1][1] = sin(gamma) * sin(beta) * sin(alpha) + cos(gamma) * cos(alpha);
+	matrix[1][2] = sin(gamma) * sin(beta) * cos(alpha) - cos(gamma) * sin(alpha);
+
+	matrix[2][0] = -sin(beta);
+	matrix[2][1] = cos(beta) * sin(alpha);
+	matrix[2][2] = cos(beta) * cos(alpha);
 	for (int i = 0; i < 3; i++)
 	{
-		result += matrix[i][i];
+		for (int j = 0; j < 3; j++)
+		{
+			if (matrix[i][j] > -0.01f && matrix[i][j] < 0.01f) matrix[i][j] = 0.0f;
+		}
 	}
-	return result;
 }
+
 void PrintEulerAxisAngle(float* axis, float angle)
 {
 	cout << "This is the Euler principal axis: " << endl;
@@ -219,7 +152,7 @@ void PrintEulerAxisAngle(float* axis, float angle)
 		cout << axis[i];
 		if (i != 2)cout << ", ";
 	}
-	cout << " }"<<endl;
+	cout << " }" << endl;
 	cout << "This is the Euler principal angle: " << endl;
 	cout << RADTODEG * angle << endl;
 }
@@ -230,7 +163,7 @@ void PrintMatrix(float matrix[][3])
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			cout <<" "<< matrix[i][j]<<" ";
+			cout << " " << matrix[i][j] << " ";
 		}
 		cout << endl;
 	}
@@ -245,11 +178,13 @@ void PrintEulerAngles(float alpha, float beta, float gamma)
 void PrintQuaternion(float* quaternion)
 {
 	cout << "This is the quaternion: " << endl;
+	cout << "{ ";
 	for (int i = 0; i < 4; i++)
 	{
-		cout << " " << quaternion[i] << " ";
+		cout << quaternion[i];
+		if (i != 3)cout << ", ";
 	}
-	cout << endl;
+	cout << " }" << endl;
 }
 void PrintVector(float* vector)
 {
@@ -260,5 +195,83 @@ void PrintVector(float* vector)
 		cout << vector[i];
 		if (i != 2)cout << ", ";
 	}
-	cout << " }"<<endl;
+	cout << " }" << endl;
+}
+void MatrixInput(float matrix[][3])
+{
+	bool loop = true;
+
+	int imput = 0;
+	cout << "Introduce the values for the matrix:" << endl;
+	for (int i = 0; i < 3; i++)
+	{
+
+		for (int j = 0; j < 3; j++)
+		{
+			loop = true;
+			cout << "Term [" << i << "] [" << j << "]" << endl;
+			cin >> imput;
+			while (loop == true)
+			{
+				loop = false;
+
+				if (imput > 9 || imput < -9)
+				{
+					cout << "Invalid value, try one between -9 and 9" << endl;
+
+					cout << "Term [" << i << "] [" << j << "]" << endl;
+					cin >> imput;
+					loop = true;
+				}
+			}
+			matrix[i][j] = imput;
+		}
+	}
+}
+void EulerAnglesInput(float& alpha, float& beta, float& gamma)
+{
+	cout << "The input of the angles is expected to be in degrees" << endl;
+	cout << "Introduce the value of ALPHA: ";
+	cin >> alpha;
+	alpha *= DEGTORAD;
+	cout << endl;
+	cout << "Introduce the value of BETA: ";
+	cin >> beta;
+	beta *= DEGTORAD;
+	cout << endl;
+	cout << "Introduce the value of GAMMA: ";
+	cin >> gamma;
+	gamma *= DEGTORAD;
+	cout << endl;
+}
+void AxisAngleInput(float* axis, float& angle)
+{
+	cout << "The input of the angle is expected to be in degrees" << endl;
+	cout << "Introduce the values for the axis: " << endl;
+	for (int i = 0; i < 3; i++)
+	{
+		cout << "Introduce the term number " << i << ": "<< endl;
+		cin >> axis[i];
+	}
+	cout << "Introduce the value of the angle: " << endl;
+	cin >> angle;
+	angle *= DEGTORAD;
+}
+void InputQuaternion(float* quaternion)
+{
+	cout << "Introduce the values for the quaternion: " << endl;
+	for (int i = 0; i < 4; i++)
+	{
+		cout << "Introduce the term number " << i << ": " << endl;
+		cin >> quaternion[i];
+	}
+}
+void InputVector(float* vector)
+{
+	cout << "Introduce the values for the rotation vector: " << endl;
+	for (int i = 0; i < 3; i++)
+	{
+		cout << "Introduce the term number " << i << ": " << endl;
+		cin >> vector[i];
+	}
 }
