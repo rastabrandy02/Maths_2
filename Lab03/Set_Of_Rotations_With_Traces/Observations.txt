@@ -1,0 +1,12 @@
+- We can observe how the traces of the matrices have a predictable behaviour despite of the axis being random.
+- All the cycles for the angle being 360*k to 360*(k+1) behave the same way
+- Considering the first cycle:
+- The trace is 3 at 0 degrees, then it starts to decrease
+- When it arrives to 60, the trace is 2
+- When it arrives to 90, the trace is 1
+- When it arrives to 120, the trace is 0
+- When it arrives to 180, the trace is -1, that is the minimum value, then it increases again
+- When it arrives to 240, the trace is 0 again
+- When it arrives to 270, the trace is 1 again
+- When it arrives to 300, the trace is 2 again
+- When it arrives to 360, the trace is 3 again, completing the cycle

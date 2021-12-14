@@ -25,10 +25,10 @@ int main()
 
 		//Here we get the angle from 0 to 6*PI
 		angle = 10 * loop * DEGTORAD;
-
+		if (angle < 0.01f && angle > -0.01f) angle = 0.0f;
 		GetRotationFromAxisAngle(axis, angle, matrixRotation);
 		trace = GetTrace(matrixRotation);
-		cout << "Matrix number: " << loop << " Angle: " << angle << " Trace: " << trace << endl;
+		cout << "Matrix number: " << loop << " Angle: " << angle * RADTODEG << " Trace: " << trace << endl;
 	}
 	cout << "Imput any key to exit" << endl;
 	char end;
@@ -95,5 +95,6 @@ float GetTrace(float matrix[][3])
 	{
 		result += matrix[i][i];
 	}
+	if (result > -0.01f && result < 0.01f) result = 0.0f;
 	return result;
 }

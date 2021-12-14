@@ -69,6 +69,7 @@ void GetAxisAngleFromMatrix(float matrix[][3], float* axis, float& angle)
 	float matrixVectorProduct[3][3] = { 0 };
 
 	angle = acos((GetTrace(matrix) - 1) / 2);
+	while (angle * RADTODEG > 360) angle -= 360 * DEGTORAD;
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -100,6 +101,7 @@ void GetAxisAngleFromQuaternion(float* quaternion, float* axis, float& angle)
 {
 
 	angle = 2 * acos(quaternion[0]);
+	while (angle * RADTODEG > 360) angle -= 360 * DEGTORAD;
 	for (int i = 0; i < 3; i++)
 	{
 		axis[i] = quaternion[i + 1] / sqrt(1 - pow(quaternion[0], 2));
@@ -116,6 +118,7 @@ void GetVectorFromAxisAngle(float* axis, float angle, float* vector)
 void GetAxisAngleFromVector(float* vector, float* axis, float& angle)
 {
 	angle = sqrt(pow(vector[0], 2) + pow(vector[1], 2) + pow(vector[2], 2));
+	while (angle*RADTODEG > 360) angle -= 360*DEGTORAD;
 	for (int i = 0; i < 3; i++)
 	{
 		axis[i] = vector[i] / angle;
